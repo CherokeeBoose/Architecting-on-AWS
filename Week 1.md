@@ -1,234 +1,227 @@
-## Building Cloud Foundations at Anyaero Aerospace
+## Compute Foundations at Anyaero Aerospace
 ---
-## Welcome to Anyaero :airplane:
-**Anyaero** is a forward-thinking aerospace company designing, testing, and operating next-generation aircraft and flight systems. Like most modern engineering organizations, Anyaero relies heavily on cloud computing to:
-Process flight telemetry
-Run simulations and analytics
-Host internal and external applications
-Secure sensitive mission and business data
-Scale systems on demand while controlling costs
-This week, you’ll step into Anyaero’s cloud environment and begin learning how AWS services support real business and technical decisions.
+## Welcome to Week 1 :airplane:
+Welcome to **Anyaero**, an aerospace company that designs, tests, and operates modern flight systems using Amazon Web Services (AWS).
+This week focuses on **compute fundamentals**, with an emphasis on how Anyaero:
+Hosts applications on Amazon EC2
+Scales compute capacity efficiently
+Balances cost, performance, and security
+Establishes secure cloud operations from day one
+By the end of this week, you should be able to explain **how and why EC2-based systems are designed and operated in real organizations**.
 ---
-## How Cloud Work Happens at Anyaero: Roles & Responsibilities
-Cloud systems are never built by one person alone. At Anyaero, **business leaders and technical teams work together**, each with different priorities.
-### Executive & Business Leadership Roles
-| Role | What They Care About | Cloud Perspective |
+## How Cloud Decisions Are Made at Anyaero
+Cloud technology supports business outcomes, not just technical goals. Different roles at Anyaero interact with AWS from different perspectives.
+### Executive & Business Roles
+| Role | Primary Focus | Cloud Perspective |
 |---|---|---|
-| **CEO** | Business growth, speed, competitiveness | Cloud enables faster launches and innovation |
-| **CFO** | Cost control, budgeting, ROI | Wants predictable spend and cost optimization |
-| **CIO** | IT strategy, reliability, modernization | Oversees cloud adoption and architecture standards |
-| **CISO** | Security, compliance, risk management | Requires encryption, access controls, and secure design |
+| **CEO** | Innovation and speed | Cloud enables faster experimentation and launches |
+| **CFO** | Cost control | Compute must scale efficiently without waste |
+| **CIO** | IT strategy | Standardized, manageable infrastructure |
+| **CISO** | Security and compliance | Strong access controls and encryption are mandatory |
 ---
 ### Technical & Operational Roles
-| Role | Primary Focus | AWS Involvement |
+| Role | Focus Area | Responsibilities This Week |
 |---|---|---|
-| **Cloud Architect** | System design | Chooses between EC2, Lambda, RDS, networking models |
-| **Cloud Engineer** | Implementation | Builds EC2 instances, fleets, and Lambda functions |
-| **DevOps / Platform Engineer** | Automation & scaling | Uses EC2 Fleet, launch templates, monitoring |
-| **Security Engineer** | Protection & compliance | Enforces IAM, encryption, network security |
-| **Network Engineer** | Connectivity | Designs VPCs, subnets, VPNs |
-| **Operations / SRE** | Reliability & monitoring | Manages EC2 lifecycle, scaling, alerts |
-| **Application Developer** | Code & features | Builds apps that run on EC2 or Lambda |
-| **Cloud Support / Ops Associate** | Troubleshooting | Diagnoses instance, networking, and access issues |
+| **Cloud Architect** | Design | Selects EC2, EC2 Fleet, and scaling models |
+| **Cloud Engineer** | Implementation | Launches and configures EC2 instances |
+| **DevOps / Platform Engineer** | Automation | Builds AMIs and EC2 Fleets |
+| **Operations / SRE** | Reliability | Manages instance lifecycle and failures |
+| **Security Engineer** | Protection | Enforces MFA, IAM roles, and secure defaults |
+| **Application Developer** | Software | Deploys applications onto EC2 |
+| **Cloud Support** | Troubleshooting | Diagnoses instance and access issues |
 **Key takeaway:** 
-Cloud services exist to support *both* business outcomes and technical execution.
+Every compute decision impacts cost, security, and operations — not just performance.
 ---
-## The Big Picture: Core Cloud Building Blocks
-Every AWS architecture at Anyaero is built from the same foundational layers:
-┌─────────────────────────┐
-│        Compute          │  → Run code (EC2, Lambda)
-├─────────────────────────┤
-│          Data           │  → Store information (RDS)
-├─────────────────────────┤
-│       Networking        │  → Connect systems (VPC, VPN)
-├─────────────────────────┤
-│        Security         │  → Protect everything (IAM, TLS)
-└─────────────────────────┘
-This week introduces you to each of these pillars.
+## Compute Options at Anyaero (Big Picture)
+AWS provides multiple ways to run applications:
+| Compute Option | Typical Use |
+|---|---|
+| Amazon EC2 | Full control over servers |
+| EC2 Fleet | Large-scale, cost-optimized compute |
+| AWS Lambda | Event-driven, short-running tasks |
+| Elastic Beanstalk | Simplified app deployment |
+This week focuses primarily on **Amazon EC2 and EC2 Fleet**, which are common in enterprise environments.
 ---
-# :one: Compute Foundations: Amazon EC2
+# :one: Amazon EC2 Fundamentals
 ### What Is Amazon EC2?
-**Amazon Elastic Compute Cloud (EC2)** provides virtual servers in the cloud. These servers behave much like on-premises machines, but with far greater flexibility and scalability.
+**Amazon Elastic Compute Cloud (EC2)** provides virtual servers in the cloud.
+An EC2 instance includes:
+CPU
+Memory
+Storage
+Networking
+An operating system (via an Amazon Machine Image)
 Official documentation: 
 https://docs.aws.amazon.com/ec2/
 ---
-### Why Anyaero Uses EC2
-EC2 is used when Anyaero needs:
-Full control over operating systems
-Custom software installations
-Long-running applications
-Predictable performance
-Typical use cases include:
-Mission planning portals
-Internal engineering tools
-Data processing workloads
+### Virtualization & the AWS Nitro System
+Most EC2 instances run on the **AWS Nitro System**, which:
+Uses a lightweight hypervisor
+Offloads networking, storage, and security to dedicated hardware
+Improves performance and isolation
+Reduces the attack surface
+This allows Anyaero to run high-performance workloads without managing physical infrastructure.
 ---
-### Understanding the EC2 Lifecycle
-An EC2 instance moves through states such as:
-**Pending**
-**Running**
-**Stopping**
-**Stopped**
-**Terminated**
-Operations teams rely on this lifecycle knowledge to:
-Control costs
-Recover from failures
-Perform maintenance safely
+### Bare Metal Instances
+Some workloads require:
+Direct access to hardware
+Specialized licensing
+Extremely low latency
+In these cases, Anyaero can use **EC2 bare metal instances**, which run without a hypervisor while still integrating with AWS services.
 ---
-### EC2 Security Considerations
-Security is never optional at Anyaero:
-Use **IAM roles** instead of static credentials 
-Restrict access using **security groups**
-Patch operating systems regularly
-Never expose sensitive services publicly unless required
+### EC2 Security Foundations
+As noted in the e-learning, secure behavior begins immediately:
+Root account is protected and rarely used
+Multi-Factor Authentication (MFA) is enabled
+Engineers use IAM roles instead of credentials
+No secrets are stored directly on instances
 EC2 security overview: 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
 ---
-# :two: Scaling Compute: Amazon EC2 Fleet
-### What Is EC2 Fleet?
-**EC2 Fleet** allows Anyaero to launch and manage **groups of EC2 instances** using a single request. It can mix:
-On-Demand Instances
-Spot Instances
-Reserved Instances
-Official documentation: 
-https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet.html
----
-### Business Scenario: Cost-Aware Scaling at Anyaero
-Anyaero runs compute-heavy flight simulations that:
-Run in bursts
-Can tolerate interruptions
-Must stay within budget
-To meet these needs:
-Architects design an EC2 Fleet
-Finance approves Spot usage for cost savings
-Operations monitors fleet health
-As you may have seen in the e-learning, EC2 Fleet enables:
-Instance weighting
-Allocation strategies
-Automatic capacity maintenance
----
-### EC2 Fleet Best Practices
-Mix instance types and Availability Zones
-Use **instance weighting** for performance-based scaling
-Set **maximum price limits** to control spend
-Monitor fleet events automatically
----
-### EC2 Fleet Security Considerations
-Fleets use **launch templates** with approved settings
-Security groups enforce least privilege
-Fleet events can trigger alerts for operations teams
----
-# :three: Serverless Compute: AWS Lambda
-### What Does “Serverless” Mean?
-Serverless means **you don’t manage servers** — AWS does.
-With **AWS Lambda**, Anyaero runs code:
-Only when needed
-Automatically scaled
-Billed per execution
-Official documentation: 
-https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
----
-### When Anyaero Uses Lambda
-Lambda is ideal for:
-Event-driven processing
-Short-running tasks
-Automation and integration
-Examples:
-Processing telemetry events
-Responding to system changes
-Backend APIs
----
-### Lambda Best Practices
-https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
-Keep functions small and focused
-Tune memory and timeout settings
-Use environment variables
-Design for retries
----
-### Lambda Security Considerations
-Enforce least-privilege IAM roles
-Never embed secrets in code
-Encrypt all data in transit
-Lambda security overview: 
-https://docs.aws.amazon.com/lambda/latest/dg/security.html
----
-# :four: Data Foundations: Relational Databases with Amazon RDS
-### What Is Amazon RDS?
-**Amazon Relational Database Service (RDS)** is a managed service for relational databases such as:
-MySQL
-PostgreSQL
-MariaDB
-SQL Server
-Oracle
-Official documentation: 
-https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html
----
-### Why Anyaero Uses RDS
-Relational databases are used when data must be:
-Structured
-Consistent
-Queryable with SQL
-Examples include:
-Mission metadata
-Flight summaries
-Operational records
----
-### RDS Best Practices
-https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_BestPractices.html
-Enable automated backups
-Use Multi-AZ for production
-Keep databases in private subnets
----
-### RDS Security Considerations
-Encrypt data at rest and in transit
-Restrict access via security groups
-Store credentials securely
-RDS security documentation: 
-https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.Security.html
----
-# :five: Networking & Connectivity
-### Amazon VPC Basics
-All AWS resources live inside a **Virtual Private Cloud (VPC)**.
-Official documentation: 
-https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
----
-### Connectivity Options at Anyaero
-| Option | Use Case |
+# :two: The EC2 Instance Lifecycle
+EC2 instances move through defined states:
+| State | Description |
 |---|---|
-| Internet Gateway | Public access |
-| Site-to-Site VPN | Secure on-premises connection |
-| Client VPN | Remote user access |
-| Direct Connect | Dedicated private connectivity |
+| Pending | Instance is launching |
+| Running | Instance is active and billable |
+| Stopping / Stopped | Instance is shut down |
+| Shutting Down / Terminated | Instance is being deleted |
+Understanding these states helps Anyaero:
+Control costs
+Perform maintenance safely
+Recover from failures
 ---
-### Networking Security Considerations
-Use private subnets for sensitive systems
-Limit inbound traffic
-Monitor traffic with logs
-VPC security best practices: 
-https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-best-practices.html
+### Stop, Start, Hibernate, Terminate
+**Stop/Start**: Preserves EBS volumes, resets memory
+**Hibernate**: Saves memory to disk
+**Terminate**: Permanently deletes the instance
+Each action has operational and cost implications.
 ---
-# :six: Encryption in Transit: A Non-Negotiable Standard
-### What Is Encryption in Transit?
-Encryption in transit protects data **while it is moving** between systems using TLS.
-Official overview: 
-https://docs.aws.amazon.com/security/latest/userguide/encryption.html
+# :three: Managing Software on EC2
+### Package Management on Amazon Linux
+Amazon Linux 2 uses **YUM**
+Amazon Linux 2023 uses **DNF**
+Regular updates are critical for:
+Security patching
+Stability
+Compliance
 ---
-### Where Anyaero Enforces Encryption
-User → AWS Console (HTTPS)
-Application → Database (TLS)
-On-premises → AWS (VPN/IPSec)
-Service → Service communication
----
-## Week 1 Key Takeaways
+### Bootstrapping with User Data
+When launching an EC2 instance, Anyaero can provide **user data** — a script that runs automatically when the instance starts.
+User data is commonly used to:
+Install software
+Apply configuration
+Start services
+#### Example: EC2 User Data Script (Amazon Linux)
+```bash
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Anyaero Mission Portal</h1>" > /var/www/html/index.html
+What this script does:
+	•	Updates the operating system
+	•	Installs the Apache web server
+	•	Starts and enables the service
+	•	Deploys a simple web page
+This allows Anyaero to launch preconfigured servers automatically, without manual setup.
+As noted in the e-learning, sensitive data (such as passwords or API keys) should never be placed in user data.
+User data documentation:
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
+⸻
+:four: Hosting Applications on Amazon EC2
+There are multiple ways to host applications in AWS.
+Hosting Option	Strengths	Tradeoffs
+Amazon S3 (static)	Low cost	No server-side logic
+Containers	Flexible	Operational complexity
+Elastic Beanstalk	Managed	Less control
+Amazon EC2	Full control	More responsibility
+AWS Lambda	Serverless	Execution limits
+This week emphasizes EC2-based hosting, where Anyaero manages the full environment.
+⸻
+Business Scenario: Internal Mission Portal
+Anyaero hosts an internal mission portal that:
+	•	Runs continuously
+	•	Requires OS-level customization
+	•	Integrates with internal systems
+EC2 is selected because it offers:
+	•	Full control
+	•	Predictable performance
+	•	Compatibility with existing tools
+⸻
+:five: Scaling with Amazon EC2 Fleet
+What Is EC2 Fleet?
+Amazon EC2 Fleet launches and manages groups of EC2 instances using a single request.
+It can combine:
+	•	On-Demand Instances
+	•	Spot Instances
+	•	Reserved capacity (when available)
+EC2 Fleet documentation:
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet.html
+⸻
+Cost-Aware Scaling at Anyaero
+Anyaero runs compute-intensive analysis jobs that:
+	•	Run in bursts
+	•	Can tolerate interruption
+	•	Must stay within budget
+Using EC2 Fleet:
+	•	Architects define capacity targets
+	•	Finance sets spending limits
+	•	Operations monitors fleet health
+⸻
+Instance Weighting
+Instance weighting allows Anyaero to:
+	•	Define capacity in units
+	•	Mix instance sizes
+	•	Optimize cost per unit of performance
+This ensures workloads receive sufficient resources without overprovisioning.
+⸻
+Monitoring Fleet Events
+As noted in the e-learning:
+	•	EC2 Fleet emits events when capacity changes
+	•	Events can trigger notifications
+	•	Operations teams gain real-time visibility
+This supports reliable, production-ready systems.
+⸻
+EC2 Fleet Security Considerations
+	•	Use approved launch templates
+	•	Restrict instance types
+	•	Apply IAM roles consistently
+	•	Monitor fleet changes
+Automation increases efficiency — but also increases responsibility.
+⸻
+:six: Operational Efficiency with AMIs
+Amazon Machine Images (AMIs)
+An AMI defines:
+	•	Operating system
+	•	Installed software
+	•	Configuration settings
+AMIs allow Anyaero to:
+	•	Launch instances faster
+	•	Enforce consistency
+	•	Reduce configuration drift
+AMI documentation:
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
+⸻
+Image Standardization
+Anyaero maintains “golden images” that are:
+	•	Patched regularly
+	•	Security-hardened
+	•	Tested before use
+This reduces risk and operational overhead.
+⸻
+Week 1 Key Takeaways
 By the end of this week, you should be able to:
-Explain how business and technical roles influence cloud decisions
-Describe when to use EC2, EC2 Fleet, Lambda, and RDS
-Understand how AWS networking connects systems securely
-Explain why security and encryption are foundational, not optional
----
-## Looking Ahead
-Next week, you’ll go deeper into:
-Identity and Access Management (IAM)
-Authentication vs authorization
-Designing for least privilege
-Secure cloud governance
+	•	Explain what an EC2 instance is and how it runs
+	•	Describe the EC2 lifecycle and why it matters
+	•	Understand how user data automates configuration
+	•	Explain how EC2 Fleet scales compute efficiently
+	•	Recognize why security is foundational from day one
+⸻
+Looking Ahead
+Next week, Anyaero dives deeper into:
+	•	Identity and Access Management (IAM)
+	•	Authentication vs authorization
+	•	Designing secure cloud environments
+You’ll build directly on the compute foundation established this week.
